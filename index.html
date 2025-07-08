@@ -11,41 +11,41 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f8fafc;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      color: #334155;
+      line-height: 1.6;
       padding: 20px;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      padding: 30px;
       max-width: 1200px;
-      width: 100%;
-      backdrop-filter: blur(10px);
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
     }
 
     h1 {
-      color: #2c3e50;
+      color: #1e293b;
       text-align: center;
-      margin-bottom: 30px;
-      font-size: 2.5rem;
-      font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 32px 20px;
+      font-size: 2rem;
+      font-weight: 600;
+      border-bottom: 1px solid #e2e8f0;
+      background: #fafafa;
+      margin: 0;
     }
 
     .controls {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-      margin-bottom: 30px;
-      padding: 20px;
-      transition: all 0.4s ease;
+      gap: 1px;
+      background: #e2e8f0;
+      transition: all 0.3s ease;
     }
 
     .controls.three-columns {
@@ -53,88 +53,89 @@
     }
 
     .color-card {
-      background: linear-gradient(145deg, #ffffff, #f8f9fa);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(52, 73, 94, 0.1);
-      transition: all 0.4s ease;
+      background: white;
+      padding: 32px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 300px;
-      gap: 15px;
+      justify-content: center;
+      gap: 16px;
+      transition: background-color 0.2s ease;
+      min-height: 200px;
     }
 
     .color-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      background: #f8fafc;
     }
 
     .color-card label {
-      font-weight: 700;
-      color: #2c3e50;
-      font-size: 1.2rem;
+      font-weight: 500;
+      color: #475569;
+      font-size: 0.95rem;
       text-align: center;
-      margin-bottom: 5px;
+      margin: 0;
     }
 
     .color-input {
-      width: 120px;
-      height: 120px;
-      border: 4px solid #fff;
-      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      outline: none;
     }
 
     .color-input:hover {
+      border-color: #cbd5e1;
       transform: scale(1.05);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .color-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .color-card p {
+      color: #64748b;
+      font-size: 0.85rem;
+      text-align: center;
+      margin: 0;
     }
 
     .checkbox-container {
-      background: linear-gradient(145deg, #f8f9fa, #e9ecef);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(52, 73, 94, 0.1);
+      background: white;
+      padding: 24px 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background-color 0.2s ease;
       grid-column: 1 / -1;
-      margin-bottom: 10px;
-      order: -1;
+      border-bottom: 1px solid #e2e8f0;
     }
 
     .checkbox-container:hover {
-      background: linear-gradient(145deg, #e9ecef, #dee2e6);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      background: #f8fafc;
     }
 
     .checkbox-container input[type="checkbox"] {
-      width: 24px;
-      height: 24px;
-      accent-color: #8e44ad;
+      width: 20px;
+      height: 20px;
+      accent-color: #3b82f6;
       cursor: pointer;
     }
 
     .checkbox-container label {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #34495e;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #475569;
       cursor: pointer;
     }
 
     .railing-card {
-      opacity: 1;
-      transform: scale(1);
-      transition: all 0.4s ease;
+      transition: all 0.3s ease;
       display: flex;
     }
 
@@ -142,48 +143,19 @@
       display: none;
     }
 
-    .apply-btn {
-      grid-column: 1 / -1;
-      background: linear-gradient(45deg, #e74c3c, #c0392b);
-      color: white;
-      border: none;
-      padding: 18px 50px;
-      border-radius: 50px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
-      margin-top: 20px;
-    }
-
-    .apply-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(231, 76, 60, 0.4);
-      background: linear-gradient(45deg, #c0392b, #e74c3c);
-    }
-
-    .apply-btn:active {
-      transform: translateY(0);
-    }
-
     .canvas-container {
+      padding: 32px 20px;
       display: flex;
       justify-content: center;
-      margin-top: 20px;
+      background: #fafafa;
     }
 
     canvas {
       max-width: 100%;
       height: auto;
-      border-radius: 15px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    canvas:hover {
-      transform: scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
     }
 
     /* Responsive Design */
@@ -274,13 +246,13 @@
     <div class="controls">
       <div class="color-card">
         <label for="primaryColor">🏠 Color Principal</label>
-        <input type="color" id="primaryColor" value="#ff8c00" class="color-input">
+        <input type="color" id="primaryColor" value="#ff9B3D" class="color-input">
         <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Paredes y estructura</p>
       </div>
       
       <div class="color-card">
         <label for="secondaryColor">🚪 Color Secundario</label>
-        <input type="color" id="secondaryColor" value="#8b4513" class="color-input">
+        <input type="color" id="secondaryColor" value="#9C522B" class="color-input">
         <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Puertas y ventanas</p>
       </div>
       
@@ -289,13 +261,13 @@
         <label for="enableRailing">🏗️ Activar color de barandales</label>
       </div>
       
-      <div class="color-card railing-card" id="railingCard">
+      <div class="color-card railing-card hidden" id="railingCard">
         <label for="railingColor">🔗 Color Barandales</label>
-        <input type="color" id="railingColor" value="#654321" class="color-input">
+        <input type="color" id="railingColor" value="#6E6E6E" class="color-input">
         <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Barandas y detalles</p>
       </div>
       
-      <button onclick="recolor()" class="apply-btn">🎨 Aplicar Colores</button>
+
     </div>
 
     <div class="canvas-container">
@@ -309,7 +281,7 @@
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     const img = new Image();
     let originalImageData = null; // Guardar la imagen original
-    img.src = "Casa.jpg"; // Asegúrate que el nombre coincide
+    img.src = "Casa.jpg"; // Usar la imagen correcta del workspace
 
     img.onload = () => {
     // Asegúrate que el tamaño del canvas sea igual al de la imagen
@@ -320,11 +292,47 @@
     // Guardar la imagen original para poder reutilizarla
     originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     
-    // Inicializar el estado del selector de barandales
-    toggleRailing();
+    // Inicializar el estado del selector de barandales (desactivado por defecto)
+    toggleRailingDisplay();
+    
+    // Configurar event listeners para recoloración en tiempo real
+    setupRealTimeColorChange();
     };
 
-    function toggleRailing() {
+    // Variable para el debounce
+    let colorChangeTimeout = null;
+    
+    function setupRealTimeColorChange() {
+        // Función debounced para recolorear
+        function debouncedRecolor() {
+            // Cancelar timeout anterior si existe
+            if (colorChangeTimeout) {
+                clearTimeout(colorChangeTimeout);
+            }
+            
+            // Establecer nuevo timeout
+            colorChangeTimeout = setTimeout(() => {
+                recolor();
+                colorChangeTimeout = null;
+            }, 100); // 100ms de delay después de parar de mover
+        }
+        
+        // Event listeners para los inputs de color con debounce
+        document.getElementById("primaryColor").addEventListener("input", debouncedRecolor);
+        document.getElementById("secondaryColor").addEventListener("input", debouncedRecolor);
+        document.getElementById("railingColor").addEventListener("input", debouncedRecolor);
+        
+        // Event listener para el checkbox de barandales (inmediato)
+        document.getElementById("enableRailing").addEventListener("change", function() {
+            toggleRailingDisplay();
+            recolor(); // Aplicar cambios inmediatamente para el checkbox
+        });
+        
+        // Aplicar colores iniciales
+        recolor();
+    }
+    
+    function toggleRailingDisplay() {
         const checkbox = document.getElementById("enableRailing");
         const railingCard = document.getElementById("railingCard");
         const controlsContainer = document.querySelector(".controls");
@@ -336,9 +344,18 @@
             railingCard.classList.add("hidden");
             controlsContainer.classList.remove("three-columns");
         }
+    }
+
+    function toggleRailing() {
+        // Mantener la funcionalidad existente para el onclick del container
+        const checkbox = document.getElementById("enableRailing");
+        checkbox.checked = !checkbox.checked;
+        toggleRailingDisplay();
         
-        // Aplicar colores automáticamente al cambiar
-        recolor();
+        // Solo llamar recolor si ya está configurado (evitar errores en inicialización)
+        if (originalImageData) {
+            recolor();
+        }
     }
 
     function hexToRgb(hex) {
@@ -402,7 +419,30 @@
 
     function isMagentaChroma(r, g, b) {
         // Detecta magentas chromakey específicos y sus variaciones/sombras
-        // Optimizado para incluir tonos como #92789b, #855785 y mejorar la naturalidad
+        // Optimizado para incluir #d88cd6 y excluir falsos positivos como #82302f y #aba198
+        
+        // EXCLUIR FALSOS POSITIVOS ESPECÍFICOS PRIMERO
+        // Excluir #82302f (marrón rojizo oscuro) - NO ES MAGENTA
+        if (r > 120 && r < 140 && g > 45 && g < 55 && b > 40 && b < 55 && 
+            r > g + 70 && r > b + 70) {
+            return false;
+        }
+        
+        // Excluir #aba198 (beige/gris) - NO ES MAGENTA  
+        if (r > 160 && r < 180 && g > 150 && g < 170 && b > 140 && b < 160 && 
+            Math.abs(r - g) < 20 && Math.abs(g - b) < 20) {
+            return false;
+        }
+        
+        // Excluir marrones y tonos tierra en general
+        if (r > g + 60 && r > b + 60 && g < 80 && b < 80) {
+            return false; // Es marrón/rojizo, no magenta
+        }
+        
+        // Excluir grises y beiges
+        if (Math.abs(r - g) < 25 && Math.abs(g - b) < 25 && Math.abs(r - b) < 25) {
+            return false; // Es gris/beige, no magenta
+        }
         
         // Función auxiliar para calcular distancia de color más precisa
         function colorDistance(r1, g1, b1, r2, g2, b2) {
@@ -416,85 +456,76 @@
             {r: 114, g: 42, b: 65},   // #722a41
             {r: 152, g: 44, b: 170},  // #982caa
             {r: 205, g: 97, b: 171},  // #cd61ab
-            {r: 146, g: 120, b: 155}, // #92789b - nuevo
-            {r: 133, g: 87, b: 133}   // #855785 - nuevo
+            {r: 146, g: 120, b: 155}, // #92789b
+            {r: 133, g: 87, b: 133},  // #855785
+            {r: 216, g: 140, b: 214}, // #d88cd6 - AGREGADO
+            {r: 114, g: 17, b: 108},  // #72116c - NUEVO
+            {r: 96, g: 59, b: 86},     // #603b56 - NUEVO
+            {r: 119, g: 76, b: 118},   // #774c76 - NUEVO
+            {r: 155, g: 135, b: 157}, // #9b879d - NUEVO
         ];
         
-        // Verificar si está cerca de algún color de referencia (tolerancia aumentada)
+        // Verificar si está cerca de algún color de referencia
         for (const ref of magentaReferences) {
-            if (colorDistance(r, g, b, ref.r, ref.g, ref.b) < 45) {
+            if (colorDistance(r, g, b, ref.r, ref.g, ref.b) < 40) {
                 return true;
             }
         }
         
-        // Detección por patrones de color mejorada
-        
-        // Magenta claro/brillante (ca8ae5, cd61ab)
-        if (r > 180 && r < 230 && g > 80 && g < 150 && b > 160 && b < 240 && 
-            r > g && b > g && Math.abs(r - b) < 50) {
+        // Detección específica para #d88cd6 (magenta claro que se confundía con verde)
+        if (r > 200 && r < 230 && g > 130 && g < 150 && b > 200 && b < 230 && 
+            Math.abs(r - b) < 20 && r > g + 50 && b > g + 50) {
             return true;
         }
         
-        // Magenta grisáceo/lavanda (#92789b y similares) - mejorado
-        if (r > 115 && r < 175 && g > 95 && g < 145 && b > 125 && b < 175 && 
-            (Math.abs(r - b) < 30 || r > g + 10) && b > g + 5) {
+        // DETECCIÓN POR PATRONES - MUY ESTRICTA PARA EVITAR FALSOS POSITIVOS
+        
+        // Magenta claro/brillante - más estricto
+        if (r > 180 && r < 240 && g > 80 && g < 160 && b > 160 && b < 240 && 
+            r > g + 40 && b > g + 40 && Math.abs(r - b) < 50) {
             return true;
         }
         
-        // Magenta púrpura medio (#855785 y similares) - mejorado
-        if (r > 105 && r < 155 && g > 65 && g < 105 && b > 105 && b < 155 && 
-            (Math.abs(r - b) < 35 || r > g + 15) && (r + b) > (2 * g + 15)) {
-            return true;
-        }
-        
-        // Magenta medio-claro (b0369b, 982caa)
-        if (r > 140 && r < 190 && g > 40 && g < 80 && b > 140 && b < 180 && 
+        // Magenta medio-claro - más estricto
+        if (r > 140 && r < 200 && g > 40 && g < 90 && b > 140 && b < 200 && 
             r > g + 50 && b > g + 50 && Math.abs(r - b) < 50) {
             return true;
         }
         
-        // Magenta oscuro/granate (722a41)
-        if (r > 100 && r < 130 && g > 35 && g < 55 && b > 55 && b < 80 && 
-            r > g + 40 && r > b + 25) {
+        // Magenta grisáceo (#92789b y similares) - SOLO si es claramente magenta
+        if (r > 115 && r < 175 && g > 95 && g < 145 && b > 125 && b < 175 && 
+            Math.abs(r - b) < 30 && (r + b) > (2.4 * g)) { // Más estricto
             return true;
         }
         
-        // Sombras intermedias del magenta (más inclusivo)
-        if (r > 80 && r < 160 && g > 50 && g < 120 && b > 80 && b < 160 && 
-            (r > g + 10 || Math.abs(r - b) < 35) && (r + b) > (2 * g + 20)) {
+        // Magenta púrpura medio (#855785 y similares) - SOLO si es claramente magenta
+        if (r > 105 && r < 155 && g > 65 && g < 105 && b > 105 && b < 155 && 
+            Math.abs(r - b) < 35 && (r + b) > (2.5 * g)) { // Más estricto
             return true;
         }
         
-        // Sombras claras del magenta (más natural)
-        if (r > 150 && r < 210 && g > 90 && g < 140 && b > 140 && b < 200 && 
-            r > g + 10 && b > g + 15 && Math.abs(r - b) < 40) {
+        // Magenta oscuro/granate - muy estricto
+        if (r > 100 && r < 140 && g > 35 && g < 65 && b > 55 && b < 90 && 
+            r > g + 50 && r > b + 30 && (r + b) > (2.3 * g)) {
             return true;
         }
         
-        // Sombras oscuras del magenta (mejorado)
-        if (r > 60 && r < 120 && g > 40 && g < 80 && b > 60 && b < 120 && 
-            (r > g + 10 || Math.abs(r - b) < 25) && (r + b) > (2 * g + 10)) {
+        // Magenta muy oscuro como #72116c - específico
+        if (r > 105 && r < 125 && g > 10 && g < 25 && b > 100 && b < 120 && 
+            r > g + 80 && b > g + 80 && Math.abs(r - b) < 20) {
             return true;
         }
         
-        // Variaciones muy oscuras (más inclusivo)
-        if (r > 40 && r < 90 && g > 25 && g < 65 && b > 40 && b < 90 && 
-            (r > g + 5 || Math.abs(r - b) < 20) && (r + b) > (2 * g + 5)) {
+        // Magenta oscuro medio como #603b56 - específico
+        if (r > 85 && r < 105 && g > 50 && g < 70 && b > 75 && b < 95 && 
+            r > g + 25 && b > g + 15 && Math.abs(r - b) < 25) {
             return true;
         }
         
-        // Detección general final para cualquier magenta que se escape
-        // Basado en la característica fundamental: R y B > G, con balance entre R y B
-        if (r > 50 && b > 50 && g > 20 && 
-            r > g + 8 && b > g + 8 && 
-            Math.abs(r - b) < 60 && 
-            (r + b) > (2.2 * g)) {
-            // Verificar que no sea un falso positivo (evitar rojos o azules puros)
-            const totalColor = r + g + b;
-            const magentaStrength = (r + b) / totalColor;
-            if (magentaStrength > 0.6 && totalColor > 100) {
-                return true;
-            }
+        // Magenta púrpura como #774c76 - específico
+        if (r > 110 && r < 130 && g > 70 && g < 85 && b > 110 && b < 130 && 
+            r > g + 30 && b > g + 30 && Math.abs(r - b) < 15) {
+            return true;
         }
         
         return false;
@@ -550,8 +581,12 @@
         
         const primary = hexToRgb(document.getElementById("primaryColor").value);
         const secondary = hexToRgb(document.getElementById("secondaryColor").value);
-        const railing = hexToRgb(document.getElementById("railingColor").value);
         const enableRailing = document.getElementById("enableRailing").checked;
+        
+        // Si barandales están habilitados, usar el color seleccionado, sino usar gris
+        const railing = enableRailing ? 
+            hexToRgb(document.getElementById("railingColor").value) :
+            {r: 110, g: 110, b: 110}; // Gris #6E6E6E
         
         // Crear una copia de la imagen original para trabajar
         const imageData = new ImageData(
@@ -561,8 +596,12 @@
         );
         const data = imageData.data;
 
+        // Detectar magenta conectado (independientemente del estado del checkbox)
+        const magentaMap = detectConnectedMagenta(data, imageData.width, imageData.height);
+
         for (let i = 0; i < data.length; i += 4) {
             const r = data[i], g = data[i + 1], b = data[i + 2];
+            const pixelIndex = i / 4;
             
             if (isGreenChroma(r, g, b)) {
                 const newColor = applyColorWithShading(r, g, b, primary);
@@ -574,7 +613,8 @@
                 data[i] = newColor.r;
                 data[i + 1] = newColor.g;
                 data[i + 2] = newColor.b;
-            } else if (enableRailing && isMagentaChroma(r, g, b)) {
+            } else if (isMagentaChroma(r, g, b) || magentaMap[pixelIndex]) {
+                // Siempre aplicar color a barandales (gris si no están habilitados)
                 const newColor = applyColorWithShading(r, g, b, railing);
                 data[i] = newColor.r;
                 data[i + 1] = newColor.g;
@@ -583,6 +623,86 @@
         }
 
         ctx.putImageData(imageData, 0, 0);
+    }
+
+    // Función para detectar magenta conectado usando flood fill
+    function detectConnectedMagenta(data, width, height) {
+        const visited = new Array(width * height).fill(false);
+        const magentaMap = new Array(width * height).fill(false);
+        
+        // Función auxiliar para verificar si un pixel es "magenta-like" (más permisivo para conectividad)
+        function isMagentaLike(r, g, b) {
+            // Excluir falsos positivos obvios primero
+            if (r > 120 && r < 140 && g > 45 && g < 55 && b > 40 && b < 55 && r > g + 70 && r > b + 70) return false; // #82302f
+            if (r > 160 && r < 180 && g > 150 && g < 170 && b > 140 && b < 160 && Math.abs(r - g) < 20) return false; // #aba198
+            if (Math.abs(r - g) < 25 && Math.abs(g - b) < 25 && Math.abs(r - b) < 25) return false; // grises
+            
+            // Detección más permisiva para conectividad
+            // Magenta básico: R y B mayores que G
+            const magentaBasic = (r > g + 10 && b > g + 10) && Math.abs(r - b) < 60;
+            
+            // O tiene características de magenta grisáceo
+            const grayishMagenta = (r > 100 && b > 100 && g > 70) && 
+                                   (r + b) > (2.2 * g) && 
+                                   Math.abs(r - b) < 50;
+            
+            return magentaBasic || grayishMagenta;
+        }
+        
+        // Función auxiliar para verificar si dos colores son similares (para conectividad)
+        function areColorsSimilar(r1, g1, b1, r2, g2, b2) {
+            const distance = Math.sqrt(Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2));
+            return distance < 30; // Tolerancia para conectividad
+        }
+        
+        // Flood fill desde un pixel semilla
+        function floodFill(startX, startY, seedR, seedG, seedB) {
+            const stack = [{x: startX, y: startY}];
+            
+            while (stack.length > 0) {
+                const {x, y} = stack.pop();
+                const index = y * width + x;
+                
+                if (x < 0 || x >= width || y < 0 || y >= height || visited[index]) continue;
+                
+                const pixelIndex = index * 4;
+                const r = data[pixelIndex];
+                const g = data[pixelIndex + 1];
+                const b = data[pixelIndex + 2];
+                
+                // Si es similar al color semilla Y es magenta-like, marcarlo
+                if (areColorsSimilar(r, g, b, seedR, seedG, seedB) && isMagentaLike(r, g, b)) {
+                    visited[index] = true;
+                    magentaMap[index] = true;
+                    
+                    // Agregar píxeles vecinos (8-conectado para mejores líneas)
+                    for (let dx = -1; dx <= 1; dx++) {
+                        for (let dy = -1; dy <= 1; dy++) {
+                            if (dx === 0 && dy === 0) continue;
+                            stack.push({x: x + dx, y: y + dy});
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Buscar píxeles semilla (magenta fuerte y seguro)
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const index = y * width + x;
+                const pixelIndex = index * 4;
+                const r = data[pixelIndex];
+                const g = data[pixelIndex + 1];
+                const b = data[pixelIndex + 2];
+                
+                // Si es un magenta fuerte (usando detección original), usarlo como semilla
+                if (isMagentaChroma(r, g, b) && !visited[index]) {
+                    floodFill(x, y, r, g, b);
+                }
+            }
+        }
+        
+        return magentaMap;
     }
 
   </script>
