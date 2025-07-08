@@ -171,26 +171,30 @@
       .controls.three-columns .railing-card {
         grid-column: 1 / -1;
       }
+
+      .color-card {
+        min-height: 180px;
+        padding: 24px 16px;
+      }
+
+      .color-input {
+        width: 70px;
+        height: 70px;
+      }
     }
 
     @media (max-width: 768px) {
       body {
-        padding: 10px;
-      }
-
-      .container {
-        padding: 20px;
+        padding: 12px;
       }
 
       h1 {
-        font-size: 2rem;
-        margin-bottom: 20px;
+        font-size: 1.75rem;
+        padding: 24px 16px;
       }
 
       .controls {
         grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 15px;
       }
       
       .controls.three-columns {
@@ -198,76 +202,89 @@
       }
 
       .color-card {
-        padding: 20px;
-        height: 250px;
+        min-height: 160px;
+        padding: 20px 16px;
       }
 
       .color-input {
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
       }
 
-      .apply-btn {
-        padding: 15px 40px;
-        font-size: 1.2rem;
+      .checkbox-container {
+        padding: 20px 16px;
+      }
+
+      .canvas-container {
+        padding: 24px 16px;
       }
     }
 
     @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+
       h1 {
         font-size: 1.5rem;
+        padding: 20px 12px;
       }
 
       .color-card {
-        padding: 15px;
-        height: 220px;
+        min-height: 140px;
+        padding: 16px 12px;
       }
 
       .color-input {
-        width: 80px;
-        height: 80px;
-      }
-
-      .apply-btn {
-        padding: 12px 30px;
-        font-size: 1.1rem;
+        width: 50px;
+        height: 50px;
       }
 
       .checkbox-container {
-        padding: 15px;
+        padding: 16px 12px;
+      }
+
+      .canvas-container {
+        padding: 20px 12px;
+      }
+
+      .color-card label {
+        font-size: 0.9rem;
+      }
+
+      .color-card p {
+        font-size: 0.8rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🏠 Simulador de Colores para la Casa</h1>
+    <h1>🏠 Simulador de Colores</h1>
+    
+    <div class="checkbox-container" onclick="toggleRailing()">
+      <input type="checkbox" id="enableRailing" onchange="toggleRailing()">
+      <label for="enableRailing">Activar barandales</label>
+    </div>
     
     <div class="controls">
       <div class="color-card">
-        <label for="primaryColor">🏠 Color Principal</label>
+        <label for="primaryColor">Color Principal</label>
         <input type="color" id="primaryColor" value="#ff9B3D" class="color-input">
-        <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Paredes y estructura</p>
+        <p>Paredes y estructura</p>
       </div>
       
       <div class="color-card">
-        <label for="secondaryColor">🚪 Color Secundario</label>
+        <label for="secondaryColor">Color Secundario</label>
         <input type="color" id="secondaryColor" value="#9C522B" class="color-input">
-        <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Puertas y ventanas</p>
-      </div>
-      
-      <div class="checkbox-container" onclick="toggleRailing()">
-        <input type="checkbox" id="enableRailing" onchange="toggleRailing()">
-        <label for="enableRailing">🏗️ Activar color de barandales</label>
+        <p>Puertas y ventanas</p>
       </div>
       
       <div class="color-card railing-card hidden" id="railingCard">
-        <label for="railingColor">🔗 Color Barandales</label>
+        <label for="railingColor">Color Barandales</label>
         <input type="color" id="railingColor" value="#6E6E6E" class="color-input">
-        <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Barandas y detalles</p>
+        <p>Barandas y detalles</p>
       </div>
-      
-
     </div>
 
     <div class="canvas-container">
