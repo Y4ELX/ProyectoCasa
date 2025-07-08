@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Pintura</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 1200px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-bottom: 30px;
+      padding: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .controls.three-columns {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .color-card {
+      background: linear-gradient(145deg, #ffffff, #f8f9fa);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(52, 73, 94, 0.1);
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 300px;
+      gap: 15px;
+    }
+
+    .color-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .color-card label {
+      font-weight: 700;
+      color: #2c3e50;
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .color-input {
+      width: 120px;
+      height: 120px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .color-input:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .checkbox-container {
+      background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(52, 73, 94, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      grid-column: 1 / -1;
+      margin-bottom: 10px;
+      order: -1;
+    }
+
+    .checkbox-container:hover {
+      background: linear-gradient(145deg, #e9ecef, #dee2e6);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      accent-color: #8e44ad;
+      cursor: pointer;
+    }
+
+    .checkbox-container label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #34495e;
+      cursor: pointer;
+    }
+
+    .railing-card {
+      opacity: 1;
+      transform: scale(1);
+      transition: all 0.4s ease;
+      display: flex;
+    }
+
+    .railing-card.hidden {
+      display: none;
+    }
+
+    .apply-btn {
+      grid-column: 1 / -1;
+      background: linear-gradient(45deg, #e74c3c, #c0392b);
+      color: white;
+      border: none;
+      padding: 18px 50px;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+      margin-top: 20px;
+    }
+
+    .apply-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(231, 76, 60, 0.4);
+      background: linear-gradient(45deg, #c0392b, #e74c3c);
+    }
+
+    .apply-btn:active {
+      transform: translateY(0);
+    }
+
+    .canvas-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    canvas:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .controls {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .controls.three-columns {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .controls.three-columns .railing-card {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 15px;
+      }
+      
+      .controls.three-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .color-card {
+        padding: 20px;
+        height: 250px;
+      }
+
+      .color-input {
+        width: 100px;
+        height: 100px;
+      }
+
+      .apply-btn {
+        padding: 15px 40px;
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .color-card {
+        padding: 15px;
+        height: 220px;
+      }
+
+      .color-input {
+        width: 80px;
+        height: 80px;
+      }
+
+      .apply-btn {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+      }
+
+      .checkbox-container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏠 Simulador de Colores para la Casa</h1>
+    
+    <div class="controls">
+      <div class="color-card">
+        <label for="primaryColor">🏠 Color Principal</label>
+        <input type="color" id="primaryColor" value="#ff8c00" class="color-input">
+        <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Paredes y estructura</p>
+      </div>
+      
+      <div class="color-card">
+        <label for="secondaryColor">🚪 Color Secundario</label>
+        <input type="color" id="secondaryColor" value="#8b4513" class="color-input">
+        <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Puertas y ventanas</p>
+      </div>
+      
+      <div class="checkbox-container" onclick="toggleRailing()">
+        <input type="checkbox" id="enableRailing" onchange="toggleRailing()">
+        <label for="enableRailing">🏗️ Activar color de barandales</label>
+      </div>
+      
+      <div class="color-card railing-card" id="railingCard">
+        <label for="railingColor">🔗 Color Barandales</label>
+        <input type="color" id="railingColor" value="#654321" class="color-input">
+        <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center;">Barandas y detalles</p>
+      </div>
+      
+      <button onclick="recolor()" class="apply-btn">🎨 Aplicar Colores</button>
+    </div>
+
+    <div class="canvas-container">
+      <canvas id="houseCanvas" width="800" height="600"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("houseCanvas");
+    // ✅ Agregar willReadFrequently: true
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const img = new Image();
+    let originalImageData = null; // Guardar la imagen original
+    img.src = "Casa.jpg"; // Asegúrate que el nombre coincide
+
+    img.onload = () => {
+    // Asegúrate que el tamaño del canvas sea igual al de la imagen
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    
+    // Guardar la imagen original para poder reutilizarla
+    originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    
+    // Inicializar el estado del selector de barandales
+    toggleRailing();
+    };
+
+    function toggleRailing() {
+        const checkbox = document.getElementById("enableRailing");
+        const railingCard = document.getElementById("railingCard");
+        const controlsContainer = document.querySelector(".controls");
+        
+        if (checkbox.checked) {
+            railingCard.classList.remove("hidden");
+            controlsContainer.classList.add("three-columns");
+        } else {
+            railingCard.classList.add("hidden");
+            controlsContainer.classList.remove("three-columns");
+        }
+        
+        // Aplicar colores automáticamente al cambiar
+        recolor();
+    }
+
+    function hexToRgb(hex) {
+    hex = hex.replace('#', '');
+    return {
+        r: parseInt(hex.substring(0, 2), 16),
+        g: parseInt(hex.substring(2, 4), 16),
+        b: parseInt(hex.substring(4, 6), 16)
+    };
+    }
+
+    // Función mejorada para detectar si un color es predominantemente verde o azul
+    function isGreenChroma(r, g, b) {
+        // Detecta verdes chromakey incluyendo sombras, pero evita grises y magentas
+        // Asegurar que es realmente verde, no gris con un poco más de verde
+        const isGrayish = Math.abs(r - g) < 15 && Math.abs(g - b) < 15 && Math.abs(r - b) < 15;
+        
+        if (isGrayish) return false; // Excluir grises
+        
+        // EXCLUIR MAGENTAS que podrían confundirse con verde
+        // Excluir #d88cd6 y similares (magenta claro que se confunde con verde)
+        if (r > 180 && r < 230 && g > 120 && g < 150 && b > 180 && b < 230 && 
+            Math.abs(r - b) < 50 && r > g + 30 && b > g + 30) {
+            return false; // Es magenta, no verde
+        }
+        
+        // Detectar específicamente #D386D4 como sombra del verde primario
+        if (r > 190 && r < 220 && g > 120 && g < 150 && b > 190 && b < 220 && 
+            Math.abs(r - b) < 35 && r > g + 20 && b > g + 20) {
+            return true;
+        }
+        
+        // Verde debe tener G significativamente mayor que R y B
+        return (g > r + 40 && g > b + 40 && g > 90) || // Verde dominante claro (más estricto)
+               (r < 25 && g > 130 && b < 70) || // Verde claro saturado (más estricto)
+               (r < 12 && g < 110 && b < 12 && g > 35); // Verde oscuro/sombra específico (más estricto)
+    }
+
+    function isBlueChroma(r, g, b) {
+        // Detecta azules chromakey específicos (más eléctricos/saturados) - MÁS ESTRICTO
+        // Evita azules naturales como el cielo
+        
+        // Excluir específicamente #D386D4 que es sombra del verde primario
+        if (r > 190 && r < 220 && g > 120 && g < 150 && b > 190 && b < 220 && 
+            Math.abs(r - b) < 35 && r > g + 20 && b > g + 20) {
+            return false;
+        }
+        
+        return (b > 160 && r < 70 && g < 110 && b > r + 60 && b > g + 40) || // Azul eléctrico saturado (más estricto)
+               (r < 40 && g < 90 && b > 190) || // Azul muy puro y brillante (más estricto)
+               (r < 25 && g < 60 && b > 110 && b > r + 50) || // Azul oscuro como #11399d (más estricto)
+               (r < 20 && g > 45 && g < 90 && b > 140 && b > r + 50) || // Azules con sombras verdes (más estricto)
+               (r < 8 && g < 25 && b > 30 && b > r + 20) || // Azul muy oscuro como #040d22 (más estricto)
+               (r > 35 && r < 45 && g > 55 && g < 65 && b > 100 && b > r + 30) || // Azul medio como #283866 (más estricto)
+               (r < 8 && g > 45 && g < 55 && b > 90 && b > r + 50) || // Azul oscuro como #003358 (más estricto)
+               (r < 15 && g > 65 && g < 75 && b > 90 && b > r + 50) || // Azul verdoso como #0f485a (más estricto)
+               (r < 15 && g > 55 && g < 58 && b > 70 && b > r + 40) || // Azul verdoso oscuro como #0f3748 (más estricto)
+               (r > 45 && r < 55 && g > 65 && g < 75 && b > 130 && b > r + 50) || // Azul medio-claro como #324380 (más estricto)
+               (r < 8 && g > 45 && g < 48 && b > 70 && b > r + 45); // Azul oscuro como #002d41 (más estricto)
+    }
+
+    function isMagentaChroma(r, g, b) {
+        // Detecta magentas chromakey específicos y sus variaciones/sombras
+        // Optimizado para incluir tonos como #92789b, #855785 y mejorar la naturalidad
+        
+        // Función auxiliar para calcular distancia de color más precisa
+        function colorDistance(r1, g1, b1, r2, g2, b2) {
+            return Math.sqrt(Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2));
+        }
+        
+        // Colores de referencia específicos para mejorar detección
+        const magentaReferences = [
+            {r: 176, g: 54, b: 155},   // #b0369b
+            {r: 202, g: 138, b: 229}, // #ca8ae5
+            {r: 114, g: 42, b: 65},   // #722a41
+            {r: 152, g: 44, b: 170},  // #982caa
+            {r: 205, g: 97, b: 171},  // #cd61ab
+            {r: 146, g: 120, b: 155}, // #92789b - nuevo
+            {r: 133, g: 87, b: 133}   // #855785 - nuevo
+        ];
+        
+        // Verificar si está cerca de algún color de referencia (tolerancia aumentada)
+        for (const ref of magentaReferences) {
+            if (colorDistance(r, g, b, ref.r, ref.g, ref.b) < 45) {
+                return true;
+            }
+        }
+        
+        // Detección por patrones de color mejorada
+        
+        // Magenta claro/brillante (ca8ae5, cd61ab)
+        if (r > 180 && r < 230 && g > 80 && g < 150 && b > 160 && b < 240 && 
+            r > g && b > g && Math.abs(r - b) < 50) {
+            return true;
+        }
+        
+        // Magenta grisáceo/lavanda (#92789b y similares) - mejorado
+        if (r > 115 && r < 175 && g > 95 && g < 145 && b > 125 && b < 175 && 
+            (Math.abs(r - b) < 30 || r > g + 10) && b > g + 5) {
+            return true;
+        }
+        
+        // Magenta púrpura medio (#855785 y similares) - mejorado
+        if (r > 105 && r < 155 && g > 65 && g < 105 && b > 105 && b < 155 && 
+            (Math.abs(r - b) < 35 || r > g + 15) && (r + b) > (2 * g + 15)) {
+            return true;
+        }
+        
+        // Magenta medio-claro (b0369b, 982caa)
+        if (r > 140 && r < 190 && g > 40 && g < 80 && b > 140 && b < 180 && 
+            r > g + 50 && b > g + 50 && Math.abs(r - b) < 50) {
+            return true;
+        }
+        
+        // Magenta oscuro/granate (722a41)
+        if (r > 100 && r < 130 && g > 35 && g < 55 && b > 55 && b < 80 && 
+            r > g + 40 && r > b + 25) {
+            return true;
+        }
+        
+        // Sombras intermedias del magenta (más inclusivo)
+        if (r > 80 && r < 160 && g > 50 && g < 120 && b > 80 && b < 160 && 
+            (r > g + 10 || Math.abs(r - b) < 35) && (r + b) > (2 * g + 20)) {
+            return true;
+        }
+        
+        // Sombras claras del magenta (más natural)
+        if (r > 150 && r < 210 && g > 90 && g < 140 && b > 140 && b < 200 && 
+            r > g + 10 && b > g + 15 && Math.abs(r - b) < 40) {
+            return true;
+        }
+        
+        // Sombras oscuras del magenta (mejorado)
+        if (r > 60 && r < 120 && g > 40 && g < 80 && b > 60 && b < 120 && 
+            (r > g + 10 || Math.abs(r - b) < 25) && (r + b) > (2 * g + 10)) {
+            return true;
+        }
+        
+        // Variaciones muy oscuras (más inclusivo)
+        if (r > 40 && r < 90 && g > 25 && g < 65 && b > 40 && b < 90 && 
+            (r > g + 5 || Math.abs(r - b) < 20) && (r + b) > (2 * g + 5)) {
+            return true;
+        }
+        
+        // Detección general final para cualquier magenta que se escape
+        // Basado en la característica fundamental: R y B > G, con balance entre R y B
+        if (r > 50 && b > 50 && g > 20 && 
+            r > g + 8 && b > g + 8 && 
+            Math.abs(r - b) < 60 && 
+            (r + b) > (2.2 * g)) {
+            // Verificar que no sea un falso positivo (evitar rojos o azules puros)
+            const totalColor = r + g + b;
+            const magentaStrength = (r + b) / totalColor;
+            if (magentaStrength > 0.6 && totalColor > 100) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    function applyColorWithShading(originalR, originalG, originalB, newColor) {
+        // Calcula la luminosidad del pixel original
+        const originalLuminance = (originalR * 0.299 + originalG * 0.587 + originalB * 0.114) / 255;
+        
+        // Calcula la luminosidad del color nuevo
+        const newColorLuminance = (newColor.r * 0.299 + newColor.g * 0.587 + newColor.b * 0.114) / 255;
+        
+        // Función suave tipo gradiente - sin escalones, completamente continua
+        let shadowFactor;
+        
+        if (newColorLuminance > 0.7) {
+            // Para colores claros - curva suave que preserva brillo
+            // Usa una función cuadrática suave para transición natural
+            shadowFactor = 0.7 + (originalLuminance * 0.3);
+            // Ajuste adicional para evitar que se oscurezca demasiado
+            shadowFactor = Math.max(shadowFactor, 0.75 + (originalLuminance * 0.2));
+        } else if (newColorLuminance < 0.4) {
+            // Para colores oscuros - mantener contraste pero suave
+            // Función exponencial suave
+            shadowFactor = 0.4 + (Math.pow(originalLuminance, 0.8) * 0.5);
+        } else {
+            // Para colores medios - función logarítmica suave
+            // Crea transición muy gradual sin saltos
+            const baseFactor = 0.5;
+            const rangeFactor = 0.45;
+            // Función que crea una curva suave sin escalones
+            shadowFactor = baseFactor + (Math.pow(originalLuminance, 0.9) * rangeFactor);
+        }
+        
+        // Aplicar un suavizado adicional para eliminar cualquier "banding"
+        // Función de interpolación cúbica para máxima suavidad
+        const smoothFactor = shadowFactor + (Math.sin(originalLuminance * Math.PI) * 0.02);
+        const finalFactor = Math.max(0.3, Math.min(1.0, smoothFactor));
+        
+        return {
+            r: Math.min(255, Math.round(newColor.r * finalFactor)),
+            g: Math.min(255, Math.round(newColor.g * finalFactor)),
+            b: Math.min(255, Math.round(newColor.b * finalFactor))
+        };
+    }
+
+    function recolor() {
+        // Si no tenemos la imagen original, no podemos recolorear
+        if (!originalImageData) {
+            console.log("Imagen original no disponible");
+            return;
+        }
+        
+        const primary = hexToRgb(document.getElementById("primaryColor").value);
+        const secondary = hexToRgb(document.getElementById("secondaryColor").value);
+        const railing = hexToRgb(document.getElementById("railingColor").value);
+        const enableRailing = document.getElementById("enableRailing").checked;
+        
+        // Crear una copia de la imagen original para trabajar
+        const imageData = new ImageData(
+            new Uint8ClampedArray(originalImageData.data),
+            originalImageData.width,
+            originalImageData.height
+        );
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+            const r = data[i], g = data[i + 1], b = data[i + 2];
+            
+            if (isGreenChroma(r, g, b)) {
+                const newColor = applyColorWithShading(r, g, b, primary);
+                data[i] = newColor.r;
+                data[i + 1] = newColor.g;
+                data[i + 2] = newColor.b;
+            } else if (isBlueChroma(r, g, b)) {
+                const newColor = applyColorWithShading(r, g, b, secondary);
+                data[i] = newColor.r;
+                data[i + 1] = newColor.g;
+                data[i + 2] = newColor.b;
+            } else if (enableRailing && isMagentaChroma(r, g, b)) {
+                const newColor = applyColorWithShading(r, g, b, railing);
+                data[i] = newColor.r;
+                data[i + 1] = newColor.g;
+                data[i + 2] = newColor.b;
+            }
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+    }
+
+  </script>
+</body>
+</html>
