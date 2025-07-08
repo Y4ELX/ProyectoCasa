@@ -20,13 +20,37 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       background: white;
       border-radius: 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       border: 1px solid #e2e8f0;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-content {
+      display: flex;
+      min-height: 70vh;
+    }
+
+    .left-panel {
+      flex: 0 0 400px;
+      background: white;
+      border-right: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .right-panel {
+      flex: 1;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
     }
 
     h1 {
@@ -41,15 +65,11 @@
     }
 
     .controls {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 1px;
       background: #e2e8f0;
       transition: all 0.3s ease;
-    }
-
-    .controls.three-columns {
-      grid-template-columns: repeat(3, 1fr);
     }
 
     .color-card {
@@ -144,14 +164,16 @@
     }
 
     .canvas-container {
-      padding: 32px 20px;
       display: flex;
       justify-content: center;
-      background: #fafafa;
+      align-items: center;
+      height: 100%;
+      width: 100%;
     }
 
     canvas {
       max-width: 100%;
+      max-height: 100%;
       height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -160,16 +182,24 @@
 
     /* Responsive Design */
     @media (max-width: 1024px) {
+      .main-content {
+        flex-direction: column;
+      }
+      
+      .left-panel {
+        flex: none;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      
+      .right-panel {
+        padding: 24px 16px;
+      }
+      
       .controls {
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .controls.three-columns {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .controls.three-columns .railing-card {
-        grid-column: 1 / -1;
+        gap: 1px;
       }
 
       .color-card {
@@ -196,10 +226,6 @@
       .controls {
         grid-template-columns: 1fr;
       }
-      
-      .controls.three-columns {
-        grid-template-columns: 1fr;
-      }
 
       .color-card {
         min-height: 160px;
@@ -215,7 +241,7 @@
         padding: 20px 16px;
       }
 
-      .canvas-container {
+      .right-panel {
         padding: 24px 16px;
       }
     }
@@ -244,7 +270,7 @@
         padding: 16px 12px;
       }
 
-      .canvas-container {
+      .right-panel {
         padding: 20px 12px;
       }
 
@@ -262,33 +288,39 @@
   <div class="container">
     <h1>🏠 Simulador de Colores</h1>
     
-    <div class="checkbox-container" onclick="toggleRailing()">
-      <input type="checkbox" id="enableRailing" onchange="toggleRailing()">
-      <label for="enableRailing">Activar barandales</label>
-    </div>
-    
-    <div class="controls">
-      <div class="color-card">
-        <label for="primaryColor">Color Principal</label>
-        <input type="color" id="primaryColor" value="#ff9B3D" class="color-input">
-        <p>Paredes y estructura</p>
+    <div class="main-content">
+      <div class="left-panel">
+        <div class="checkbox-container" onclick="toggleRailing()">
+          <input type="checkbox" id="enableRailing" onchange="toggleRailing()">
+          <label for="enableRailing">Activar barandales</label>
+        </div>
+        
+        <div class="controls">
+          <div class="color-card">
+            <label for="primaryColor">Color Principal</label>
+            <input type="color" id="primaryColor" value="#ff9B3D" class="color-input">
+            <p>Paredes y estructura</p>
+          </div>
+          
+          <div class="color-card">
+            <label for="secondaryColor">Color Secundario</label>
+            <input type="color" id="secondaryColor" value="#9C522B" class="color-input">
+            <p>Puertas y ventanas</p>
+          </div>
+          
+          <div class="color-card railing-card hidden" id="railingCard">
+            <label for="railingColor">Color Barandales</label>
+            <input type="color" id="railingColor" value="#6E6E6E" class="color-input">
+            <p>Barandas y detalles</p>
+          </div>
+        </div>
       </div>
       
-      <div class="color-card">
-        <label for="secondaryColor">Color Secundario</label>
-        <input type="color" id="secondaryColor" value="#9C522B" class="color-input">
-        <p>Puertas y ventanas</p>
+      <div class="right-panel">
+        <div class="canvas-container">
+          <canvas id="houseCanvas" width="800" height="600"></canvas>
+        </div>
       </div>
-      
-      <div class="color-card railing-card hidden" id="railingCard">
-        <label for="railingColor">Color Barandales</label>
-        <input type="color" id="railingColor" value="#6E6E6E" class="color-input">
-        <p>Barandas y detalles</p>
-      </div>
-    </div>
-
-    <div class="canvas-container">
-      <canvas id="houseCanvas" width="800" height="600"></canvas>
     </div>
   </div>
 
@@ -352,14 +384,11 @@
     function toggleRailingDisplay() {
         const checkbox = document.getElementById("enableRailing");
         const railingCard = document.getElementById("railingCard");
-        const controlsContainer = document.querySelector(".controls");
         
         if (checkbox.checked) {
             railingCard.classList.remove("hidden");
-            controlsContainer.classList.add("three-columns");
         } else {
             railingCard.classList.add("hidden");
-            controlsContainer.classList.remove("three-columns");
         }
     }
 
